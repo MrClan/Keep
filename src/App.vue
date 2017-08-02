@@ -1,6 +1,10 @@
 <template>
   <div id="app">
+    <p><h3>Google Keep Clone</h3></p>
+    <hr/>
     <router-view></router-view>
+    <hr/>
+    <h6>MrClan</h6>
   </div>
 </template>
 
