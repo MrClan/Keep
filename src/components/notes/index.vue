@@ -1,22 +1,25 @@
 <template>
   <div>
-    <h3>Showing all {{notes.length}} notes</h3>
-    <form class="create-note" v-on:submit.prevent="createNote()">
-      <input name="title" v-model="title" placeholder="Title" />
-      <textarea name="content" v-model="content" placeholder="Text goes here..." rows="3">
-      </textarea>
-      <button type="submit">+</button>
-    </form>
+    <h3>{{notes.length}} notes saved</h3>
     <hr/>
     <div class="grid">
+      <div class="grid-item" style="height:404px;width:100%;border-radius:57px; background-color: #2ecc71;color:#EEE;">
+        <h3>Add New Note</h3>
+        <form class="create-note" v-on:submit.prevent="createNote()">
+          <input name="title" v-model="title" placeholder="Title" />
+          <textarea name="content" v-model="content" placeholder="Text goes here..." rows="12">
+          </textarea>
+          <button type="submit">+</button>
+        </form>
+      </div>
       <template v-for="(n,i) in notes">
-        <div v-bind:class="n.classes" v-if="(n.r %2 == 0)" v-bind:style="{backgroundColor: n.color}">
+        <div class="grid-item" v-if="(n.r %2 == 0)" v-bind:style="{backgroundColor: n.color}">
           <h4>{{i+1}}. {{n.title}}</h4>
-          <pre>{{n.content}}</pre>
+          <p>{{n.content}}</p>
         </div>
-        <div v-bind:class="n.classes" v-bind:style="{backgroundColor: n.color}" v-else>
+        <div class="grid-item" v-bind:style="{backgroundColor: n.color}" v-else>
           <h4>{{i+1}}. {{n.title}}</h4>
-          <pre>{{n.content}}</pre>
+          <p>{{n.content}}</p>
         </div>
       </template>
     </div>
@@ -24,7 +27,7 @@
   </div>
 </template>
 <script>
-import { firebaseDb, noteTypes as nt, colors } from '../../Modules/Firebase.js'
+import { firebaseDb, noteTypes as nt, goodColors as colors } from '../../Modules/Firebase.js'
 export default {
   data() {
     return {
@@ -39,13 +42,13 @@ export default {
   methods: {
     createNote() {
       if (this.title.trim() || this.content.trim()) {
-        debugger
+        let _this = this
         firebaseDb.ref('notes').push({ title: this.title, content: this.content }, (err) => {
           if (err) {
             throw err
           }
-          this.title = ''
-          this.content = ''
+          _this.title = ''
+          _this.content = ''
         })
       }
     }
@@ -61,7 +64,7 @@ export default {
             key: child.key,
             title: child.val().title,
             content: child.val().content,
-            color: colors[parseInt(Math.random() * 553)],
+            color: colors[parseInt(Math.random() * 20)],
             classes: ['grid-item', _this.heightClass[parseInt(Math.random() * 3)], _this.widthClass[parseInt(Math.random() * 3)]]
           })
         })
@@ -75,7 +78,7 @@ export default {
         key: data.key,
         title: data.val().title,
         content: data.val().content,
-        color: colors[parseInt(Math.random() * 553)],
+        color: colors[parseInt(Math.random() * 20)],
         classes: ['grid-item', _this.heightClass[parseInt(Math.random() * 3)], _this.widthClass[parseInt(Math.random() * 3)]]
       })
     })
@@ -94,7 +97,6 @@ export default {
 <style>
 form.create-note {
   position: relative;
-  width: 480px;
   margin: 15px auto;
   background: #fff;
   padding: 15px;
@@ -131,8 +133,12 @@ form.create-note button {
 }
 
 body {
-  font-family: sans-serif;
+  /* font-family: sans-serif; */
+  font-family: 'Oswald';
+  color: #fff;
 }
+
+
 
 
 
@@ -148,10 +154,11 @@ body {
 /* ---- grid ---- */
 
 .grid {
-  background: #EEE;
   max-width: 100%;
   margin: 48px;
 }
+
+
 
 
 
@@ -182,17 +189,56 @@ body {
 
 
 
+.scrollbar
+{
+	margin-left: 30px;
+	float: left;
+	height: 300px;
+	width: 65px;
+	background: #F5F5F5;
+	overflow-y: scroll;
+	margin-bottom: 25px;
+}
+
+
+/*
+ *  STYLE 4
+ */
+
+/* .grid-item::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 4px rgba(0,0,0,0.3);
+	background-color: #F5F5F5;
+}
+
+.grid-item::-webkit-scrollbar
+{
+	width: 10px;
+	background-color: #F5F5F5;
+}
+
+.grid-item::-webkit-scrollbar-thumb
+{
+	background-color: #000000;
+	border: 1px solid #555555;
+} */
+
+
 
 /* ---- grid-item ---- */
 
 .grid-item {
-  width: 160px;
-  height: 120px;
+  min-width: 480px;
+  min-height: 120px;
   float: left;
   background: #D26;
-  border: 2px solid #333;
+  border: 1px solid #333;
   border-color: hsla(0, 0%, 0%, 0.5);
-  border-radius: 5px;
+  /* border-radius: 57px; */
+  padding: 4px;
+  /* overflow-y: scroll; */
+  margin-bottom: 24px;
+  margin:2px;
 }
 
 .grid-item--width2 {
