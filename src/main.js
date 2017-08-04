@@ -4,25 +4,14 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import * as Firebase from 'Firebase'
-import Guid from 'Guid'
-
-
-// let newGuid = Guid.raw();
-
-// firebaseDb.ref('notes').push({
-//   title: 'Hello world',
-//   content: 'Lorem ipsum'
-// })
-
-// firebaseDb.ref('notes').on('value', (snapshot) => {
-//   let notes = snapshot.val()
-//   let count = 0
-//   snapshot.forEach((child) => { count++ })
-//   window.alert(`Total Notes Count = ${count}`)
-// })
+import VueToastr2 from 'vue-toastr-2'
+import 'vue-toastr-2/dist/vue-toastr-2.min.css'
 
 
 Vue.config.productionTip = false
+
+
+Vue.use(VueToastr2)
 
 /* eslint-disable no-new */
 new Vue({

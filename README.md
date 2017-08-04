@@ -2,6 +2,13 @@
 
 > A Google Keep Clone using VueJs and Firebase
 
+### TODO
+1. Add edit and delete feature
+2. Add animations(GSAP maybe)
+3. Add rich content support(images/videos/html)
+4. Add specific items of type todo lists and reminders
+
+
 ## Build Setup
 
 ``` bash
